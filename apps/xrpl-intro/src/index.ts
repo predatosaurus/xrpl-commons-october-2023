@@ -85,7 +85,7 @@ const main = async () => {
   //   command: "account_info"
   // })
 
-  console.log(response)
+  // console.log(response)
 
   await xrplClient.disconnect()
 }
