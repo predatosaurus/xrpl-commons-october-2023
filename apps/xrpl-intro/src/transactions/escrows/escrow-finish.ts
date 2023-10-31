@@ -16,5 +16,20 @@ export const finishEscrow = async ({
   console.log(color.bold("******* LET'S FINISH AN ESCROW *******"))
   console.log()
 
-  // todo: code the function
+  // Step1 transaction
+  const transaction: EscrowFinish = {
+    Account: wallet.address,
+    TransactionType: "EscrowFinish",
+    ...txn
+  }
+
+  // Step2 sign and submit
+  const response = await client.submitAndWait(transaction, {
+    autofill: true,
+    wallet
+  })
+
+  console.log(response)
+
+  return response
 }

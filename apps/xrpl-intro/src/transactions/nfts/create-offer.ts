@@ -1,6 +1,7 @@
 import { NFTokenCreateOffer } from "xrpl"
 import { getXrplClient } from "../../client"
 import { TransactionPropsForSingleSign } from "../../models"
+import { autofill } from "xrpl/dist/npm/sugar"
 
 const client = getXrplClient()
 
@@ -21,5 +22,20 @@ export const createOffer = async ({
   console.log("******* LET'S CREATE AN NFT OFFER *******")
   console.log()
 
-  // todo: code the create NFT offer function
+  // Step1 create transaction
+  const transaction: NFTokenCreateOffer = {
+    Account: wallet.address,
+    TransactionType: "NFTokenCreateOffer",
+    ...txn
+  }
+
+  // Step2 sign and submit
+  const result = await client.submitAndWait(transaction, {
+    autofill: true,
+    wallet
+  })
+
+  console.log(result)
+
+  return result
 }
